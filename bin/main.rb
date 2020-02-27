@@ -17,6 +17,11 @@ class UserInterface
     gets.chomp
   end
 
+  def self.ask_player_name(player)
+    puts "Enter name for player #{player[:id]}"
+    gets.chomp
+  end
+
   def self.repeat_match()
     loop do
       puts 'Play again? (y/n)'
@@ -42,28 +47,33 @@ player2 = {
 }
 
 board = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
+players = [player1, player2]
 
 current_player = player1
 puts UserInterface.display_board(board)
+game_on = true
 
-loop do
-  # We are only doing 5 moves for demo purposes.
-  5.times do
-    # Game tells which player turn it is
-    UserInterface.ask_move(current_player)
-    # Game decides wether it's a valid move and changes the board accordingly
-    # Game inform player if selected move is valid
-    UserInterface.display_board(board)
-    current_player = current_player == player1 ? player2 : player1
-  end
+# The game asks for players names
+player1[:name] = UserInterface.ask_player_name(players[0])
+player2[:name] = UserInterface.ask_player_name(players[1])
 
-  # Assuming player 1 wins
-  # Game inform player if selected move is a winning move
-  UserInterface.output_message('Congratulations player 1, you win!')
-  # Assuming player make a draw move
-  # Game informs player if selected move is a draw move
-  UserInterface.output_message('You draw')
+# The game will remain active until game_on variable falls to false.
+while game_on
+  # Game tells which player turn it is
+  UserInterface.ask_move(current_player)
+  # Game decides wether it's a valid move and changes the board accordingly
+  # Game inform player if selected move is valid
+  UserInterface.display_board(board)
 
-  keep_playing = UserInterface.repeat_match
-  break unless keep_playing
+  # Game checks for a draw or a winning move
+  # If it detects a winning move, then the game_on variable turns false and it will end the match
+  # If not the current player switches.
+  current_player = current_player == player1 ? player2 : player1
+
+  break unless game_on
 end
+  # If player wins
+  UserInterface.output_message("Congratulations #{current_player[:name]}, you win!")
+  # If game detected a draw 
+  # Game informs player if selected move is a draw move
+  # UserInterface.output_message('You draw')
