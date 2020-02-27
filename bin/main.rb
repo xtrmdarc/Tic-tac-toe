@@ -57,6 +57,9 @@ game_on = true
 player1[:name] = UserInterface.ask_player_name(players[0])
 player2[:name] = UserInterface.ask_player_name(players[1])
 
+# Since there is no game logic implemented, we are making the game break after nine iterations
+showcase_turns = 9
+
 # The game will remain active until game_on variable falls to false.
 while game_on
   # Game tells which player turn it is
@@ -70,6 +73,8 @@ while game_on
   # If not the current player switches.
   current_player = current_player == player1 ? player2 : player1
 
+  showcase_turns -= 1
+  game_on = false if showcase_turns.zero?
   break unless game_on
 end
 
