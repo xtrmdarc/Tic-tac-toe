@@ -51,4 +51,61 @@ class Board
     false
   end
 
+  def check_win_main_diagonal?(player)
+    diagonal_arr = []
+    symbol_check = player.character
+    i = 0
+    while i < @cells.length
+      j = 0
+      while j < @cells[i].length
+        diagonal_arr.push(@cells[i][j]) if i == j
+        j += 1
+      end
+      i += 1
+    end
+    return true if diagonal_arr.all?(symbol_check)
+
+    false
+  end
+
+  def board_full?
+    @cells.each do |row|
+      row.each do |element|
+        return false if element.is_a?(Integer)
+      end
+    end
+    return true
+  end
+
+  public
+  def board_completed(player)
+    return 1 if check_win_rows?(player) || check_win_columns?(player)
+
+    return 1 if check_win_main_diagonal?(player) || check_win_reverse_diagonal?(player)
+
+    return 2 if board_full?
+
+    0
+  end
+
+  def valid_move?(position)
+    return (position > 0)  && (position <= @cells.length**2) && position.is_a?(Integer)
+  end
+
+  def apply_move?(char, position)
+    return false unless valid_move?(position)
+    attemp_row = (position / @cells.length).floor
+    attemp_row -= 1 if (position % @cells.length).zero?
+    attemp_move = @cells[attemp_row][position % @cells.length - 1]
+    if attemp_move.is_a?(Integer)
+      @cells[attemp_row][position % @cells.length - 1] = char
+      return true
+    end
+    false
+  end
+
+  def display
+    @ui.display_board(@cells)
+  end
+
 end
