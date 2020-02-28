@@ -3,29 +3,27 @@ require_relative 'board.rb'
 require_relative 'match.rb'
 
 class Game
-  def initialize(ui)
+  def initialize(user_interface)
     @game_on = false
-    @ui = ui
+    @user_interface = user_interface
   end
 
-  public
   def start
-    @ui.output_message "Welcome to Tic-Tac-Toe!"
+    @user_interface.output_message 'Welcome to Tic-Tac-Toe!'
     @players = []
-    player1_name = @ui.ask_name(1)
-    @players[0] = Player.new(player1_name,'X')
-    player2_name = @ui.ask_name(2)
-    @players[1] = Player.new(player2_name,'O')
+    player1_name = @user_interface.ask_name(1)
+    @players[0] = Player.new(player1_name, 'X')
+    player2_name = @user_interface.ask_name(2)
+    @players[1] = Player.new(player2_name, 'O')
     @game_on = true
 
     while @game_on
-      match = Match.new(@players, @ui)
+      match = Match.new(@players, @user_interface)
       match.start
-      @ui.display_score(@players)
-      @game_on = @ui.repeat_match
+      @user_interface.display_score(@players)
+      @game_on = @user_interface.repeat_match
     end
 
-    @ui.output_message "Game over. Thank you for playing Tic-Tac-Toe!"
+    @user_interface.output_message 'Game over. Thank you for playing Tic-Tac-Toe!'
   end
-
 end

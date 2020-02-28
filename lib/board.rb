@@ -3,12 +3,13 @@ require_relative 'player.rb'
 class Board
   attr_reader :cells
 
-  def initialize(ui)
+  def initialize(user_interface)
     @cells = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
-    @ui = ui
+    @user_interface = user_interface
   end
 
   private
+
   def check_win_rows?(player)
     symbol_check = player.character
     @cells.each do |row|
@@ -33,7 +34,7 @@ class Board
     end
     false
   end
-  
+
   def check_win_reverse_diagonal?(player)
     rev_diagonal_arr = []
     symbol_check = player.character
@@ -74,10 +75,11 @@ class Board
         return false if element.is_a?(Integer)
       end
     end
-    return true
+    true
   end
 
   public
+
   def board_completed(player)
     return 1 if check_win_rows?(player) || check_win_columns?(player)
 
@@ -89,11 +91,12 @@ class Board
   end
 
   def valid_move?(position)
-    return (position > 0)  && (position <= @cells.length**2) && position.is_a?(Integer)
+    position.positive? && (position <= @cells.length**2) && position.is_a?(Integer)
   end
 
   def apply_move?(char, position)
     return false unless valid_move?(position)
+
     attemp_row = (position / @cells.length).floor
     attemp_row -= 1 if (position % @cells.length).zero?
     attemp_move = @cells[attemp_row][position % @cells.length - 1]
@@ -105,7 +108,6 @@ class Board
   end
 
   def display
-    @ui.display_board(@cells)
+    @user_interface.display_board(@cells)
   end
-
 end
