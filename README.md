@@ -4,7 +4,7 @@ This a ruby implementation of the game Tic-Tac-Toe.
 
 # Rules
 
-This is a two-player game. Each player takes turns making placing a token on the board until there's a winner or a draw match.
+This is a two-player game. Each player takes turns placing a token on the board until there's a winner or a draw match.
 Each player is going to place their token on the selected cell, and if they manage to get their token three times in a continuous line, they win the match.
 Each cell can only be selected once per match, you can't overwrite a previously taken cell.
 If the board is full before there's a winner, the match is considered a draw.
@@ -27,8 +27,11 @@ You can't choose a cell that's not displayed in the figure, that will result in 
 If you want to stop playing, just enter 'n' when asked if you want to keep playing at the end of the match.
 
 # How to run the game
-First of all, you need to have the game files in your computer. You can get them by cloning this repository.
-On the command line, navigate to the game directory. Once there, there's two ways to run the game
+First of all, you need to have the game files in your computer. You can get them either cloning this repository, or downloading its contents directly
+- To clone the repo, go on the project's [Github page](https://github.com/xtrmdarc/Tic-tac-toe), click on "Clone or download", copy the contents of the text box, and then run `git clone "repo"` on the command line, where "repo" is the text you just copied.
+- If you want to download it directly instead, go on the project's [Github page](https://github.com/xtrmdarc/Tic-tac-toe), click on "Clone or download", and then on "Download ZIP". After this you need to extract the contents of the zip file on your computer.
+
+Once you have the files on your computer, go on the command line and navigate to the game directory. Once there, there's two ways to run the game
 
 - Run the game directly from the executable file, using the command `./bin/main.rb`
 - Pass the main.rb file to the ruby interpreter, using the command `ruby bin/main.rb`
