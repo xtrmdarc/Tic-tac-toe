@@ -38,7 +38,7 @@ Once you have the files on your computer, go on the command line and navigate to
 
 # Live version
 
-[Link to the live version](https://tic-tac-toe.xtrmdarc.repl.run/)
+[Link to the live version](https://tic-tac-toe-1.ivandiaz5.repl.run/)
 
 # Requirements
 
