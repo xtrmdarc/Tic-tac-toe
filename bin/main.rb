@@ -50,6 +50,8 @@ class UserInterface
   end
 end
 
-ui = UserInterface.new
-game = Game.new(ui)
-game.start
+if $PROGRAM_NAME == __FILE__
+  ui = UserInterface.new
+  game = Game.new(ui)
+  game.start
+end
