@@ -3,7 +3,6 @@ require './lib/player'
 require './bin/main'
 
 describe Board do
-
   let(:my_player) do
     Player.new(1, 'X')
   end
@@ -16,35 +15,49 @@ describe Board do
     Board.new(my_ui)
   end
 
+  describe '#apply_move?' do
+    it 'should apply the move to the specified position' do
+      my_board.apply_move?(my_player.character, 1)
+      expect(my_board.cells[0][0]).to eql('X')
+    end
+
+    it 'should return false if the position is already taken' do
+      my_board.apply_move?(my_player.character, 1)
+      expect(
+        my_board.apply_move?(my_player.character, 1)
+      ).not_to eql(true)
+    end
+  end
+
   describe '#board_completed' do
-    it "should return true when there's a win state on the board - top row" do
+    it 'should return true when there is a win state on the board - top row' do
       my_board.apply_move?(my_player.character, 1)
       my_board.apply_move?(my_player.character, 2)
       my_board.apply_move?(my_player.character, 3)
       expect(
-          my_board.board_completed(my_player)
+        my_board.board_completed(my_player)
       ).to eql(1)
     end
 
-    it "should return true when there's a win state on the board - main diagonal" do
+    it 'should return true when there is a win state on the board - main diagonal' do
       my_board.apply_move?(my_player.character, 1)
       my_board.apply_move?(my_player.character, 5)
       my_board.apply_move?(my_player.character, 9)
       expect(
-          my_board.board_completed(my_player)
+        my_board.board_completed(my_player)
       ).to eql(1)
     end
 
-    it "should return 1 when there's a win state on the board - first column" do
+    it 'should return 1 when there is a win state on the board - first column' do
       my_board.apply_move?(my_player.character, 1)
       my_board.apply_move?(my_player.character, 4)
       my_board.apply_move?(my_player.character, 7)
       expect(
-          my_board.board_completed(my_player)
+        my_board.board_completed(my_player)
       ).to eql(1)
     end
 
-    it "should return 2 if there's a drawn match" do
+    it 'should return 2 if there is a drawn match' do
       # Each line represents a move
       my_board.apply_move?(my_player.character, 1)
       my_board.apply_move?(my_player.character, 2)
@@ -75,6 +88,4 @@ describe Board do
       expect(my_board.apply_move?(my_player.character, 1)).not_to eql(true)
     end
   end
-  
-
 end
